@@ -110,18 +110,6 @@
             z-index: 100; 
             box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
         }
-
-        /* ВОТ ЭТО НУЖНО ДОБАВИТЬ: */
-        #redirect-btn:hover {
-            transform: scale(1.1) translateY(0); /* Добавил translateY(0), чтобы масштаб работал корректно при анимации появления */
-            background-color: #fff;
-        }
-
-        #redirect-btn.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
- }
  
     /* Эффект вылетающих цифр */
     .particle {
@@ -133,6 +121,17 @@
         z-index: 50;
         animation: flyUp 0.6s ease-out forwards;
     }
+        /* ВОТ ЭТО НУЖНО ДОБАВИТЬ: */
+        #redirect-btn:hover {
+            transform: scale(1.1) translateY(0); /* Добавил translateY(0), чтобы масштаб работал корректно при анимации появления */
+            background-color: #fff;
+        }
+
+        #redirect-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+}
 
     @keyframes flyUp {
         0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
