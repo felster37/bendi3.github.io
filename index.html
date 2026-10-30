@@ -68,25 +68,7 @@
         #clicker-btn:active {
             transform: scale(0.9);
         }
-<script>
-        let score = 0;
-        const scoreDisplay = document.getElementById('score');
-        const button = document.getElementById('clicker-btn');
-
-        // ГЛАВНАЯ ФУНКЦИЯ КЛИКА
-        function doClick(event) {
-            // Это предотвращает лишние действия телефона (зум, свайпы)
-            if (event.type === 'touchstart') {
-                event.preventDefault();
-            }
-
-            score++;
-            scoreDisplay.innerText = score;
-        }
-
-        // Слушаем и мышку (ПК), и касание (Телефон)
-        button.addEventListener('click', doClick);
-        button.addEventListener('touchstart', doClick, { passive: false });
+        
         /* Иконка */
         #clicker-btn {
     background-image: url('bendy.png'); /* Подключаем твою картинку */
