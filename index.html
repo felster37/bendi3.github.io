@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bendy Ink Clicker</title>
     <style>
-        /* СТИЛИ: Твои оригинальные стили */
+        /* СТИЛИ: Оптимизированы под мобильные телефоны и GitHub Pages */
         body {
             margin: 0;
             padding: 0;
@@ -17,55 +16,73 @@
             height: 100vh;
             background-color: #050505;
             color: #e0e0e0;
-            font-family: sans-serif;
+            font-family: 'Arial Black', Gadget, sans-serif;
             overflow: hidden;
             user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent; /* Убирает синее выделение при тапе на мобилках */
         }
 
         #counter-container {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            z-index: 10;
         }
 
         #score {
-            font-size: 4rem;
+            font-size: clamp(3rem, 15vw, 5rem); /* Размер шрифта подстраивается под экран */
             font-weight: bold;
             color: #ffcc00;
-            text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.6);
             margin: 0;
         }
 
         .label {
-            font-size: 1rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.6;
+            letter-spacing: 3px;
+            opacity: 0.5;
         }
 
+        /* Кнопка-кликер */
         #clicker-btn {
-            width: 200px;
-            height: 200px;
+            width: clamp(150px, 60vw, 220px);
+            height: clamp(150px, 60vw, 220px);
             border-radius: 50%;
-            border: none;
+            border: 4px solid #222;
             background: radial-gradient(circle, #333, #000);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 204, 0, 0.2);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.05s;
             outline: none;
             position: relative;
-            background-image: url('bendy.png'); 
-            background-size: cover;             
-            background-position: center;        
-            background-repeat: no-repeat;       
+            touch-action: manipulation; /* Оптимизация для быстрых тапов на смартфоне */
         }
 
         #clicker-btn:active {
-            transform: scale(0.9);
+            transform: scale(0.92);
         }
 
+        /* Иконка (можно заменить на картинку Бенди позже) */
+        #clicker-btn::after {
+            content: '💀'; 
+            font-size: clamp(4rem, 20vw, 6rem);
+        }
+        #clicker-btn {
+    background-image: url('bendy.png'); /* Подключаем твою картинку */
+    background-size: cover;             /* Растягиваем на всю кнопку */
+    background-position: center;        /* Центрируем */
+    background-repeat: no-repeat;       /* Чтобы не дублировалась */
+}
+
+/* Убираем старый эмодзи, чтобы он не мешал */
+#clicker-btn::after {
+    content: ''; 
+}
+
+        /* Анимация пульсации */
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.4); }
             70% { box-shadow: 0 0 0 25px rgba(255, 204, 0, 0); }
@@ -76,6 +93,7 @@
             animation: pulse 2s infinite;
         }
 
+        /* Кнопка перехода */
         #redirect-btn {
             margin-top: 50px;
             padding: 18px 40px;
@@ -86,46 +104,81 @@
             font-size: 1.2rem;
             border-radius: 50px;
             opacity: 0;
-            transform: translateY(20px); 
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            pointer-events: none; 
-            z-index: 100; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
-        }
+transform: translateY(20px); transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; z-index: 100; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+    #redirect-btn.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
 
-        #redirect-btn.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
+    /* Эффект вылетающих цифр */
+    .particle {
+        position: absolute;
+        color: #ffcc00;
+        font-weight: bold;
+        font-size: 1.5rem;
+        pointer-events: none;
+        z-index: 50;
+        animation: flyUp 0.6s ease-out forwards;
+    }
 
-        .particle {
-            position: absolute;
-            color: #ffcc00;
-            font-weight: bold;
-            font-size: 1.5rem;
-            pointer-events: none;
-            z-index: 50;
-            animation: flyUp 0.6s ease-out forwards;
-        }
-
-        @keyframes flyUp {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            100% { transform: translate(-50%, -150%) scale(1.5); opacity: 0; }
-        }
-
-        /* Твоя кнопка "Чекнуть" */
-        .pretty-button display: inline-block; 
-padding: 15px 30px; 
-background-color: #ffcc00; 
-color: #000; text-decoration: none; 
-font-weight: bold; 
-font-family: sans-serif; 
-border-radius: 50px; 
-box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-transition: all 0.3s ease; margin-top: 20px; }
-            .pretty-button:hover {
-        transform: scale(1.1);
-        background-color: #fff;
+    @keyframes flyUp {
+        0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        100% { transform: translate(-50%, -150%) scale(1.5); opacity: 0; }
     }
 </style>
+<div id="counter-container">
+    <p class="label">Собрано чернил</p>
+    <p id="score">0</p>
+</div>
+
+<button id="clicker-btn" class="pulse"></button>
+
+<!-- !!! ВАЖНО: ЗАМЕНИ ССЫЛКУ НИЖЕ НА СВОЮ !!! -->
+<a href="https://t.me/whitefilet" id="redirect-btn">Посмотреть</a>
+
+<script>
+    let count = 0;
+    const scoreElement = document.getElementById('score');
+    const btn = document.getElementById('clicker-btn');
+    const redirectBtn = document.getElementById('redirect-btn');
+
+    // Сколько раз нужно нажать, чтобы появилась кнопка
+    const GOAL = 37; 
+
+    btn.addEventListener('touchstart', function(e) {
+        // Для мобилок используем touchstart, чтобы не было задержки клика
+        handleAction(e.touches[0].clientX, e.touches[0].clientY);
+    });
+
+    btn.addEventListener('mousedown', function(e) {
+        // Для компов используем mousedown
+        if (e.pointerType !== 'touch') {
+            handleAction(e.clientX, e.clientY);
+        }
+    });
+
+    function handleAction(x, y) {
+        count++;
+        scoreElement.innerText = count;
+        createParticle(x, y);
+
+        if (count >= GOAL) {
+            redirectBtn.classList.add('visible');
+            btn.classList.remove('pulse'); // Останавливаем пульсацию, когда цель достигнута
+        }
+    }
+
+    function createParticle(x, y) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.innerText = '+1';
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+            particle.remove();
+        }, 600);
+    }
+</script>
