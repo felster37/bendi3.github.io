@@ -111,16 +111,29 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
         }
  
-    /* Эффект вылетающих цифр */
+        /* Эффект вылетающих цифр */
     .particle {
         position: absolute;
-        color: #ffcc00;
+        color: #b8860b; /* Темно-желтый цвет */
         font-weight: bold;
         font-size: 1.5rem;
         pointer-events: none;
         z-index: 50;
+        /* Убираем смещение по X в анимации, чтобы летели строго вверх */
         animation: flyUp 0.6s ease-out forwards;
     }
+
+    @keyframes flyUp {
+        0% { 
+            transform: translate(-50%, -50%) scale(1); 
+            opacity: 1; 
+        }
+        100% { 
+            /* Летит вверх на 100px от точки клика */
+            transform: translate(-50%, -150%) scale(1.5); 
+            opacity: 0; 
+        }
+ 
         /* ВОТ ЭТО НУЖНО ДОБАВИТЬ: */
         #redirect-btn:hover {
             transform: scale(1.1) translateY(0); /* Добавил translateY(0), чтобы масштаб работал корректно при анимации появления */
