@@ -66,10 +66,17 @@
         }
 
         /* Иконка (можно заменить на картинку Бенди позже) */
-        #clicker-btn::after {
-            content: '💀'; 
-            font-size: clamp(4rem, 20vw, 6rem);
-        }
+        #clicker-btn {
+    background-image: url('bendy.png'); /* Подключаем твою картинку */
+    background-size: cover;             /* Растягиваем на всю кнопку */
+    background-position: center;        /* Центрируем */
+    background-repeat: no-repeat;       /* Чтобы не дублировалась */
+}
+
+/* Убираем старый эмодзи, чтобы он не мешал */
+#clicker-btn::after {
+    content: ''; 
+}
 
         /* Анимация пульсации */
         @keyframes pulse {
