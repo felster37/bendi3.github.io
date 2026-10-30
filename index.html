@@ -93,7 +93,7 @@
             animation: pulse 2s infinite;
         }
 
-        /* Кнопка перехода */
+                /* Кнопка перехода */
         #redirect-btn {
             margin-top: 50px;
             padding: 18px 40px;
@@ -104,13 +104,14 @@
             font-size: 1.2rem;
             border-radius: 50px;
             opacity: 0;
-transform: translateY(20px); 
+            transform: translateY(20px); 
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             pointer-events: none; 
-            z-index: 100; box-shadow: 
-                0 10px 20px rgba(0,0,0,0.5);
+            z-index: 100; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
         }
-        
+
+        /* ВОТ ЭТО НУЖНО ДОБАВИТЬ: */
         #redirect-btn:hover {
             transform: scale(1.1) translateY(0); /* Добавил translateY(0), чтобы масштаб работал корректно при анимации появления */
             background-color: #fff;
@@ -120,13 +121,8 @@ transform: translateY(20px);
             opacity: 1;
             transform: translateY(0);
             pointer-events: auto;
+ }
  
-        #redirect-btn.visible {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-    }
-
     /* Эффект вылетающих цифр */
     .particle {
         position: absolute;
